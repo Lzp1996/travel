@@ -7,10 +7,12 @@
       <span class="iconfont">&#xe632;</span>
       <input type="text" placeholder="输入城市/景点/游玩主题" class="search">
     </div>
-    <div class="header-right">
-      北京
-      <span class="iconfont arrow-icon">&#xe64a;</span>
-    </div>
+    <router-link to="/city">
+      <div class="header-right">
+        北京
+        <span class="iconfont arrow-icon">&#xe64a;</span>
+      </div>
+    </router-link>
   </div>
 </template>
 
@@ -53,4 +55,5 @@ export default {
     .header-right
       float : right
       width: 60px
+      color :#ffffff
 </style>
