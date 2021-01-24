@@ -16,6 +16,11 @@
 <script>
 export default {
   name: 'Icons',
+  props: {
+    list: {
+      type: Array
+    }
+  },
   data () {
     return {
       iconList: [{
@@ -60,7 +65,7 @@ export default {
   computed: {
     pages () {
       const page = []
-      this.iconList.forEach((item, index) => {
+      this.list.forEach((item, index) => {
         const key = Math.floor(index / 8)
         if (!page[key]) {
           page[key] = []
@@ -78,7 +83,6 @@ export default {
     width: 100%
     height:0
     padding-bottom :50%
-    background-color :#e5e5e5
     overflow : hidden
     .icon
       position : relative
