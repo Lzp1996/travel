@@ -30,14 +30,17 @@ export default {
         let opacity = top / 140
         opacity = opacity > 1 ? 1 : opacity
         this.showAbs = false
-        this.opacityStyle = opacity
+        this.opacityStyle = { opacity }
       } else {
         this.showAbs = true
       }
     }
   },
-  activated () {
+  mounted () {
     window.addEventListener('scroll', this.handleScroll)
+  },
+  deactivated () {
+    window.removeEventListener('scroll', this.handleScroll)
   }
 }
 </script>
