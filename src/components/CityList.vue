@@ -1,0 +1,92 @@
+<template>
+  <div class="list" ref="wrapper">
+    <div>
+      <div class="area">
+        <div class="title">当前城市</div>
+        <div class="button-list" >
+          <div class="button-wrapper">
+            <div class="button">北京</div>
+          </div>
+          <div class="button-wrapper">
+            <div class="button">北京</div>
+          </div>
+          <div class="button-wrapper">
+            <div class="button">北京</div>
+          </div>
+          <div class="button-wrapper">
+            <div class="button">北京</div>
+          </div>
+        </div>
+      </div>
+      <div class="area">
+        <div class="title">热门城市</div>
+        <div class="button-list" >
+          <div class="button-wrapper" v-for="(item, key) of hotCity" :key="key">
+            <div class="button">{{item.name}}</div>
+          </div>
+        </div>
+      </div>
+      <div class="area" v-for="(item, key) of cities" :key="key">
+        <div class="title">{{key}}</div>
+        <div class="item-list" >
+          <div class="item" v-for="innerItem of item" :key="innerItem.id">
+            {{innerItem.name}}
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</template>
+
+<script>
+import BScorll from 'better-scroll'
+export default {
+  name: 'CityList',
+  props: {
+    cities: {
+      type: Object
+    },
+    hotCity: {
+      type: Array
+    }
+  },
+  mounted () {
+    this.scroll = new BScorll(this.$refs.wrapper)
+  }
+}
+</script>
+
+<style lang="stylus" scoped>
+  .list
+    position :absolute
+    overflow :hidden
+    top : 1.58rem
+    left : 0
+    right : 0
+    bottom : 0
+    .title
+      line-height: .44rem
+      background-color : #eee
+      padding-left : .2rem
+      color : #666
+      font-size: .26rem;
+    .button-list
+      overflow : hidden
+      padding: .1rem .6rem .1rem .1rem
+      .button-wrapper
+        float : left
+        width: 30.3%
+        padding : .1rem
+        .button
+          overflow :hidden
+          padding : .1rem
+          border : .02rem solid #ccc
+          text-align center
+          border-radius : .06rem
+    .item-list
+      .item
+        line-height: .54rem
+        border-bottom : .02rem solid #e5e5e5
+        color :#666
+        padding-left :.2rem
+</style>
