@@ -5,31 +5,30 @@
         <div class="title">当前城市</div>
         <div class="button-list" >
           <div class="button-wrapper">
-            <div class="button">北京</div>
-          </div>
-          <div class="button-wrapper">
-            <div class="button">北京</div>
-          </div>
-          <div class="button-wrapper">
-            <div class="button">北京</div>
-          </div>
-          <div class="button-wrapper">
-            <div class="button">北京</div>
+            <div class="button">{{this.$store.state.city}}</div>
           </div>
         </div>
       </div>
       <div class="area">
         <div class="title">热门城市</div>
         <div class="button-list" >
-          <div class="button-wrapper" v-for="(item, key) of hotCity" :key="key">
+          <div class="button-wrapper"
+               v-for="(item, key) of hotCity"
+               @click="handleGetCity(item.name)"
+               :key="key"
+          >
             <div class="button">{{item.name}}</div>
           </div>
         </div>
       </div>
       <div class="area" v-for="(item, key) of cities" :ref="key" :key="key">
         <div class="title">{{key}}</div>
-        <div class="item-list" >
-          <div class="item" v-for="innerItem of item" :key="innerItem.id">
+        <div class="item-list">
+          <div class="item"
+               v-for="innerItem of item"
+               :key="innerItem.id"
+               @click="handleGetCity(innerItem.name)"
+           >
             {{innerItem.name}}
           </div>
         </div>
@@ -40,6 +39,7 @@
 
 <script>
 import BScorll from 'better-scroll'
+import { mapState, mapMutations } from 'vuex'
 export default {
   name: 'CityList',
   props: {
@@ -53,8 +53,21 @@ export default {
       type: String
     }
   },
+  computed: {
+    ...mapState(['city'])
+  },
+  methods: {
+    handleGetCity (city) {
+      // this.$store.commit('changeCity', city)
+      this.changeCity(city)
+      this.$router.push('/')
+    },
+    ...mapMutations(['changeCity'])
+  },
   mounted () {
-    this.scroll = new BScorll(this.$refs.wrapper)
+    this.scroll = new BScorll(this.$refs.wrapper, {
+      click: true
+    })
   },
   watch: {
     letter () {

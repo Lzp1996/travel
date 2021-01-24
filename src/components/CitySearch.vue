@@ -3,7 +3,11 @@
     <input v-model="keyword" class="search-input" type="text" placeholder="请输入城市">
     <div class="search-content" v-show="keyword" ref="search">
       <ul>
-        <li class="item" v-for="item of list" :key="item.id">{{item.name}}</li>
+        <li class="item"
+            v-for="item of list"
+            @click="handleGetCity(item.name)"
+            :key="item.id"
+        >{{item.name}}</li>
         <li class="item" v-show="hasCity">未搜索到指定城市</li>
       </ul>
     </div>
@@ -11,6 +15,7 @@
 </template>
 
 <script>
+import { mapMutations } from 'vuex'
 import BScorll from 'better-scroll'
 export default {
   name: 'CitySearch',
@@ -28,6 +33,14 @@ export default {
     hasCity () {
       return !this.list.length
     }
+  },
+  methods: {
+    handleGetCity (city) {
+      // this.$store.commit('changeCity', city)
+      this.changeCity(city)
+      this.$router.push('/')
+    },
+    ...mapMutations(['changeCity'])
   },
   watch: {
     keyword () {
